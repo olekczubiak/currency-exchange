@@ -8,7 +8,7 @@ name = ['EUR', 'CHF', 'USD', 'GBP']
 FILE = 'html/html_liderwalut.html'
 
 def open_file(filename):
-    return open(filename, 'r').read()
+    return open(filename, 'r', encoding='utf8').read()
 
 def search(filename, name = 'EUR'):
     soup = BeautifulSoup(open_file(filename, ), "html.parser")

@@ -22,4 +22,7 @@ echo "TOPFX:"
 python parse_topfx.py
 echo "Liderwalut:"
 python parse_liderwalut.py
-
+echo "InternetowyKantor:"
+python parse_internetowykantor.py
+read var
+echo $var

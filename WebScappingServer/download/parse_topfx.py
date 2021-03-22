@@ -9,7 +9,7 @@ to_sell = ['sell_EUR','sell_CHF', 'sell_USD', 'sell_GBP']
 FILE = 'html/html_topfx.html'
 
 def open_file(filename):
-    return open(filename, 'r').read()
+    return open(filename, 'r', encoding='utf8').read()
 
 def search(filename, name, buy_name, sell_name):
     soup = BeautifulSoup(open_file(filename), "html.parser")
