@@ -11,7 +11,7 @@ def download_file(url):
 
 
 def write_file(n, content):
-    file_name = f'html/html_{n}_{NAMES[n]}_{MY_TIME}.html'
+    file_name = f'html/html_{NAMES[n]}.html'
     with open(file_name, 'wb') as f:
         f.write(content)
 
@@ -24,4 +24,5 @@ def main():
     for n, url in enumerate(open('urls.txt').readlines()):
         tasks.append(scrape_tasks(n, url))
 
-main()
+if __name__ == "__main__":
+    main()
