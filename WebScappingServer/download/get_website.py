@@ -1,6 +1,16 @@
 import time
 import requests
 
+# Delete Adding certificate verification is strongly advised.
+import requests
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+# ----------------------------------------------------------------------
+
+
+
+
+
 MY_TIME = str(time.ctime()).replace(' ', '-')
 NAMES = ['internetowykantor', 'liderwalut', 'topfx']
 
