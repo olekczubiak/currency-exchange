@@ -12,7 +12,8 @@ def open_file(filename):
     return open(filename, 'r', encoding='utf8').read()
 
 
-def search(filename, name, i=0):
+def search(filename, name, i = 0):
+
     soup = BeautifulSoup(open_file(filename, ), "html.parser")
 
     def finder_to_buy(name):
@@ -33,19 +34,9 @@ def search(filename, name, i=0):
     return {name[i].upper(): {'BUY': buy_list[i], "SELL": sell_list[i]}}
 
 
-
-
-def add_to_db():
-    pass
-
-
 def print_all_currency():
     for j in range(4):
         print(search(FILE, name, j))
-
-
-
-
 
 if __name__ == "__main__":
     print_all_currency()
