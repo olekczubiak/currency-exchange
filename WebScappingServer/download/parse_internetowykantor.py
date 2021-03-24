@@ -33,6 +33,8 @@ def search(filename, name, i = 0):
 
     return {name[i].upper(): {'BUY': buy_list[i], "SELL": sell_list[i]}}
 
+def add_to_db():
+    pass
 
 def print_all_currency():
     for j in range(4):
