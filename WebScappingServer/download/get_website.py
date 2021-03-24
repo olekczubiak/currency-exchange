@@ -1,5 +1,3 @@
-import time
-import requests
 
 # Delete Adding certificate verification is strongly advised.
 import requests
@@ -10,8 +8,6 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
 
-
-MY_TIME = str(time.ctime()).replace(' ', '-')
 NAMES = ['internetowykantor', 'liderwalut', 'topfx']
 
 def download_file(url):
@@ -29,9 +25,8 @@ def scrape_tasks(n ,url):
     write_file(n, content)
 
 def main():
-    tasks = []
     for n, url in enumerate(open('urls.txt').readlines()):
-        tasks.append(scrape_tasks(n, url))
+        scrape_tasks(n, url)
 
 if __name__ == "__main__":
     main()

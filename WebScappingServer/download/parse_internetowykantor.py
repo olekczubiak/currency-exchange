@@ -12,23 +12,20 @@ def open_file(filename):
     return open(filename, 'r', encoding='utf8').read()
 
 
-def add_to_db():
-    pass
-
-
 def search(filename, name, i = 0):
+
     soup = BeautifulSoup(open_file(filename, ), "html.parser")
 
     def finder_to_buy(name):
         to_buy_list = []
-        for i in name:
-            to_buy_list.append(soup.body.find('tr', attrs={'data-currency-id': i}).find('td', attrs={'class': to_buy}).text)
+        for j in name:
+            to_buy_list.append(soup.body.find('tr', attrs={'data-currency-id': j}).find('td', attrs={'class': to_buy}).text)
         return to_buy_list
 
     def finder_to_sell(name):
         to_sell_list = []
-        for i in name:
-            to_sell_list.append(soup.body.find('tr', attrs={'data-currency-id': i}).find('td', attrs={'class': to_sell}).text)
+        for j in name:
+            to_sell_list.append(soup.body.find('tr', attrs={'data-currency-id': j}).find('td', attrs={'class': to_sell}).text)
         return to_sell_list
 
     buy_list = finder_to_buy(name)
