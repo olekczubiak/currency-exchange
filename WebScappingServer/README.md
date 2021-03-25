@@ -11,8 +11,13 @@ python3 -m venv Scapping
 ```
 
 Gdy już utworzymy venva musimy go **włączyć**:
+Dla linuxa/maca:
 ```
 source Scapping/bin/activate
+```
+Dla windowsa:
+```
+.Scapping/bin/activate
 ```
 
 Teraz możemy zainstalować zależności:
@@ -23,3 +28,4 @@ lub:
 ```
 pip3 install -r requirements.txt
 ```
+
