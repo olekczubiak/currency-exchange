@@ -17,7 +17,7 @@ source Scapping/bin/activate
 ```
 Dla windowsa:
 ```
-.Scapping/bin/activate
+Scapping/scripts/activate
 ```
 
 Teraz możemy zainstalować zależności:
