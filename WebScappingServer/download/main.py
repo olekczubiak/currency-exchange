@@ -1,6 +1,8 @@
-from time import sleep
+from time import sleep, ctime
+import sqlite3
 from bs4 import BeautifulSoup
 import requests
+# to delete errors
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 # ----------------------------------------------------------------------
@@ -14,9 +16,63 @@ class ToJson:
     def return_json_msg(name, buy_price, sell_price):
         return {name: {'BUY': buy_price, 'SELL': sell_price}}
 
+
+class AddToDB:
+    def __init__(self, my_id:int = 1, 
+                    name = 'ERROR NAME', 
+                    date = 'ERROR DATE',
+                    buy_EUR = 'ERROR', sell_EUR = 'ERROR', 
+                    buy_GBP = 'ERROR', sell_GBP = 'ERROR', 
+                    buy_CHF = 'ERROR', sell_CHF = 'ERROR', 
+                    buy_USD = 'ERROR', sell_USD = 'ERROR', 
+                    website='www.error.com', rating:int = 10):
+        self.id: int = my_id
+        self.name: str = name
+        self.date: str = date
+        self.buy_EUR: str = buy_EUR
+        self.sell_EUR: str = sell_EUR
+        self.buy_GBP: str = buy_GBP
+        self.sell_GBP: str = sell_GBP
+        self.buy_CHF: str = buy_CHF
+        self.sell_CHF: str = sell_CHF
+        self.buy_USD: str = buy_USD
+        self.sell_USD: str = sell_USD
+        self.website: str = website
+        self.rating: int = rating
+    def main(self):
+        try:
+            # ADD REAL PATH TO DB
+            sqliteConnection = sqlite3.connect('CurrencyDB.db')
+            cursor = sqliteConnection.cursor()
+            sqlite_insert_query = """INSERT INTO history
+                            (ID, Name, Date, 
+                            buy_EUR, sell_EUR, 
+                            buy_GBP, sell_GBP, 
+                            buy_CHF, sell_CHF, 
+                            buy_USD, sell_USD , 
+                            Website, Rating) 
+                            VALUES 
+                            (?,?,?,?,?,?,?,?,?,?,?,?,?);"""
+            count = cursor.execute(sqlite_insert_query, (self.id,self.name,self.date , 
+                                                        self.buy_EUR, self.sell_EUR, 
+                                                        self.buy_GBP, self.sell_GBP, 
+                                                        self.buy_CHF, self.sell_CHF, 
+                                                        self.buy_USD, self.sell_USD, 
+                                                        self.website, self.rating))
+            sqliteConnection.commit()
+            print("Record inserted successfully into SqliteDb_developers table ", cursor.rowcount)
+            cursor.close()
+        except sqlite3.Error as error:
+            print("Failed to insert data into sqlite table", error)
+        finally:
+            if (sqliteConnection):
+                sqliteConnection.close()
+                print("The SQLite connection is closed")
+
+
 class Parse:
     def __init__(self):
-        self.CURRENCIES: list = ['EUR', 'CHF', 'USD', 'GBP']
+        self.CURRENCIES: list = ['EUR', 'GBP', 'CHF', 'USD']
         self.CANTOR_NAMES: list =  ['internetowykantor', 'liderwalut', 'topfx']
     def download_file(self,url):
         r = requests.get(url, verify=False)
@@ -34,20 +90,38 @@ class Parse:
 
 
 class LiderWalut(Parse):
-    PATH: str
     def __init__(self):
-        self.PATH = 'html/html_liderwalut.html'
+        self.PATH:str = 'html/html_liderwalut.html'
+        self.name:str = 'Lider walut'
+        self.date:str = str(ctime()).replace(' ', '-')
+        self.website: str = 'www.liderwalut.pl'
+        self.rating: int = 1
     
-    def search(self, filename, name = 'EUR', table_to_find = 'tr', cell_to_find = 'td'):
+    def search(self, filename, name = 'EUR',to_return:int = 1, table_to_find = 'tr', cell_to_find = 'td'):
         soup = BeautifulSoup(OpenFile.open_file(filename), "html.parser")
         finder_to_buy_sell = soup.body.find(table_to_find, attrs={'class': name})
         fake_list = finder_to_buy_sell.find_all(cell_to_find)
-        return ToJson.return_json_msg(fake_list[0].text, fake_list[1].text, fake_list[2].text)
+        return fake_list[to_return].text
+
 
     def print_to_debug(self):
         print("Lider Walut")
         for element in Parse().CURRENCIES:
-            print(self.search(self.PATH, element))
+            print(ToJson.return_json_msg(element, self.search(self.PATH, element), self.search(self.PATH, element, 2)))
+
+    def add_to_db(self):
+        AddToDB(1, 
+        self.name, 
+        self.date, 
+        self.search(self.PATH, Parse().CURRENCIES[0]), 
+        self.search(self.PATH, Parse().CURRENCIES[0], 2),
+        self.search(self.PATH, Parse().CURRENCIES[1]), 
+        self.search(self.PATH, Parse().CURRENCIES[1], 2), 
+        self.search(self.PATH, Parse().CURRENCIES[2]), 
+        self.search(self.PATH, Parse().CURRENCIES[2], 2),
+        self.search(self.PATH, Parse().CURRENCIES[3]), 
+        self.search(self.PATH, Parse().CURRENCIES[3] ,2), 
+        self.website, self.rating).main()
 
 class TopFx(Parse):
     PATH: str
@@ -105,6 +179,15 @@ class InternetowyKantor(Parse):
 
 
 if __name__ == "__main__":
+    # Test db connection
+    # AddToDB().main()
+
+    # Test Lider walut connection 
+    # LiderWalut().add_to_db()
+    # LiderWalut().print_to_debug()
+
+
+    # Test parsing
     for x in range(3):
         # Pobieranie i zapisywanie do pliku
         Parse().main()
