@@ -1,4 +1,9 @@
 # README for WebScappingServer
+## UML:
+![](https://i.imgur.com/H4nopnB.png)
+
+
+
 
 ## Pierwsza instalacja środowiska wirtualnego:
 
@@ -17,7 +22,7 @@ source Scapping/bin/activate
 ```
 Dla windowsa:
 ```
-Scapping/scripts/activate
+.Scapping/bin/activate
 ```
 
 Teraz możemy zainstalować zależności:
@@ -28,4 +33,14 @@ lub:
 ```
 pip3 install -r requirements.txt
 ```
+
+
+## TODO: 
+- [ ] Zrobienie połączenie do bazy danych dla TopFx
+- [ ] Zrobienie połączenia do bazy danych dla InternetowegoKantoru
+- [ ] Zrobienie klasy main
+- [ ] Zrobienie w klasie main funkcji która odpowiada za działanie w pętli 
+- [ ] Zrobienie w klasie main funkcji która odpowiada za testy poprawnego działania
+
+
 
