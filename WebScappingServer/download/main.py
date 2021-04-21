@@ -44,7 +44,8 @@ class AddToDB:
             # ADD REAL PATH TO DB
             sqliteConnection = sqlite3.connect('CurrencyDB.db')
             cursor = sqliteConnection.cursor()
-            sqlite_insert_query = """INSERT INTO history
+            sqlite_insert_query = """
+                            INSERT INTO history
                             (ID, Name, Date, 
                             buy_EUR, sell_EUR, 
                             buy_GBP, sell_GBP, 
@@ -182,12 +183,12 @@ if __name__ == "__main__":
     # Test db connection
     # AddToDB().main()
 
-    # Test Lider walut connection 
+    # # Test Lider walut connection 
     # LiderWalut().add_to_db()
     # LiderWalut().print_to_debug()
 
 
-    # Test parsing
+    # # Test parsing
     for x in range(3):
         # Pobieranie i zapisywanie do pliku
         Parse().main()
