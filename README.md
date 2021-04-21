@@ -6,7 +6,7 @@
 
 ![](https://i.imgur.com/ZKzAKxK.jpg)
 
-
+ 
  #### Technologie: 
      1. Front-end: html, css, js, Bootstrap
      2. Back-end: Django
@@ -36,6 +36,11 @@
 ---
 
 ## TODO:
+
+- [ ] Za 2 tyg - Poprawić błędy i znormalizować baze danych |  połączyć baze danych 
+- [ ] Za 4 tyg - Zrobić frontend + deploy
+- [ ] Za 6 tyg - Ewentualny termin zapasowy
+- [ ] Za 10 tyg - Ewentualny termin zapasowy
 - [ ] Sprzedać apkę i być bogatym💸 
 
 
