@@ -1,10 +1,9 @@
 from django.db import models
 
 class Cantor(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=50)
     date = models.DateTimeField(auto_now_add=True)
     website = models.CharField(max_length=100)
-    my_id = models.CharField(max_length=100)
     rating = models.CharField(max_length=100)
     buy_EUR = models.CharField(max_length=100)
     sell_EUR = models.CharField(max_length=100)
