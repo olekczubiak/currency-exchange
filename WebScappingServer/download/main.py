@@ -2,11 +2,14 @@ from time import sleep, ctime
 import sqlite3
 from bs4 import BeautifulSoup
 import requests
+import os
 # to delete errors
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 # ----------------------------------------------------------------------
 
+# Olek PC
+DB_PATH = '/Users/olek/Documents/CurrencyExchange/BackendServer/CurrencyExchange/db.sqlite3'
 
 class OpenFile:
     def open_file(self):
@@ -37,14 +40,14 @@ class AddToDB:
     def main(self):
         try:
             # ADD REAL PATH TO DB
-            sqliteConnection = sqlite3.connect('db.sqlite3')
+            sqliteConnection = sqlite3.connect(os.path.realpath(DB_PATH))
             cursor = sqliteConnection.cursor()
             sqlite_insert_query = """
-                            INSERT INTO history
-                            (ID, Name, Date, 
-                            buy_price, sell_price, 
+                            INSERT INTO api_basic_cantor
+                            (ID, name, date, 
+                            buy, sell, 
                             currency, 
-                            Website, Rating) 
+                            website, rating) 
                             VALUES 
                             (?,?,?,?,?,?,?,?);"""
             count = cursor.execute(sqlite_insert_query, (self.id,self.name,self.date , 
@@ -196,7 +199,15 @@ if __name__ == "__main__":
     # Test db connection
     # AddToDB().main()
 
-    # # Test Lider walut connection 
-    LiderWalut().add_to_db()
-    TopFx().add_to_db()
-    InternetowyKantor().add_to_db()
+    # Add to db
+    # LiderWalut().add_to_db()
+    # TopFx().add_to_db()
+    # InternetowyKantor().add_to_db()
+
+    # Loop
+    for x in range(3):
+        Parse()
+        LiderWalut().add_to_db()
+        TopFx().add_to_db()
+        InternetowyKantor().add_to_db()
+        sleep(30)
