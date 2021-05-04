@@ -106,7 +106,7 @@ class LiderWalut(Parse):
             self.name, 
             self.date, 
             self.search(self.PATH, Parse().CURRENCIES[num]), 
-            self.search(self.PATH, Parse().CURRENCIES[num] ,2),
+            self.search(self.PATH, Parse().CURRENCIES[num], 2),
             Parse().CURRENCIES[num],
             self.website, self.rating).main()
 
@@ -123,17 +123,17 @@ class TopFx(Parse):
         self.NAMES_TO_BUY = ['buy_EUR','buy_CHF','buy_USD', 'buy_GBP']
         self.NAMES_TO_SELL = ['sell_EUR','sell_CHF', 'sell_USD', 'sell_GBP']
 
-    def search(self, filename, name, element_to_buy, element_to_sell, container = 'span', element_name = 'id'):
+    def search(self, filename, element_to_buy, element_to_sell, container = 'span', element_name = 'id'):
         soup = BeautifulSoup(OpenFile.open_file(filename), "html.parser")
         finder_to_buy = soup.body.find(container, attrs={element_name: element_to_buy}).text
         finder_to_sell = soup.body.find(container, attrs={element_name: element_to_sell}).text
         return finder_to_buy, finder_to_sell
-
-    # def print_to_debug(self):
-    #     print('TopFx')
-    #     for element1, element2, element3 in zip(Parse().CURRENCIES, self.NAMES_TO_BUY, self.NAMES_TO_SELL):
-    #         print(self.search(self.PATH ,element1, element2, element3 ))
-
+    """
+    def print_to_debug(self):
+        print('TopFx')
+        for element1, element2, element3 in zip(Parse().CURRENCIES, self.NAMES_TO_BUY, self.NAMES_TO_SELL):
+             print(self.search(self.PATH ,element1, element2, element3 ))
+    """
     def add_to_db(self):
         for element1, element2, element3 in zip(Parse().CURRENCIES, self.NAMES_TO_BUY, self.NAMES_TO_SELL):
             AddToDB(None,
@@ -151,10 +151,15 @@ class InternetowyKantor(Parse):
     class_name_to_sell: str
     def __init__(self):
         self.PATH = 'html/html_internetowykantor.html'
-        self.CURRENCIES = ['eur', 'chf', 'usd', 'gbp']
+        self.CURRENCIES = ['eur', 'gbp', 'chf', 'usd']
         self.class_name_to_buy = 'currency_table_buy bem-rate-table__rate'
         self.class_name_to_sell = "currency_table_sell bem-rate-table__rate"
-    
+        self.name: str = 'InternetowyKantor'
+        self.date: str = str(ctime()).replace(' ', '-')
+        self.website: str = 'www.internetowykantor.pl'
+        self.rating: int = 3
+
+
     def search(self, filename, i = 0):
         soup = BeautifulSoup(OpenFile.open_file(filename), "html.parser")
         def finder_to_buy(CURRENCIES):
@@ -173,34 +178,47 @@ class InternetowyKantor(Parse):
 
     def print_to_debug(self):
         print('Internetowy Kantor')
+        print(self.search(self.PATH, 0)[0])
+        print(self.search(self.PATH, 0)[1])
+
+
+        '''
         for element in range(4):
-            print(self.search(self.PATH,element))
-
-    def add_to_db():
-        pass
+            print(self.search(self.PATH, element))
+        '''
 
 
+    def add_to_db(self):
+        for element in range(4):
+            AddToDB(None,
+                    self.name,
+                    self.date,
+                    self.search(self.PATH, element)[0],
+                    self.search(self.PATH, element)[1],
+                    self.CURRENCIES[element].upper(),
+                    self.website,
+                    self.rating).main()
 
 
 
-# if __name__ == "__main__": 
+"""
+(None,
+                    self.name, 
+                    self.date,
+                    self.search('html/html_topfx.html', element1, element2, element3)[0],
+                    self.search('html/html_topfx.html', element1, element2, element3)[1],
+                ,
+                    self.website,
+                    self.rating).main()
+
+"""
+if __name__ == "__main__":
+
+    InternetowyKantor().add_to_db()
     # Test db connection
     # AddToDB().main()
 
     # # Test Lider walut connection 
     # LiderWalut().add_to_db()
     # TopFx().add_to_db()
-
-    # LiderWalut().print_to_debug()
-
-
-    # # Test parsing
-    # for x in range(3):
-    #     # Pobieranie i zapisywanie do pliku
-    #     Parse().main()
-    #     # Wyciagacze html 
-    #     LiderWalut().print_to_debug()
-    #     TopFx().print_to_debug()
-    #     InternetowyKantor().print_to_debug()
-    #     print('----------------------------------------')
-    #     sleep(30)
+    # InternetowyKantor().add_to_db()

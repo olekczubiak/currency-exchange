@@ -10,3 +10,4 @@ class CantorSerializer(serializers.ModelSerializer):
                             'buy_GBP', 'sell_GBP',
                             'buy_CHF', 'sell_CHF',
                             'buy_USD', 'sell_USD']
+

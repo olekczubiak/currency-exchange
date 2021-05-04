@@ -4,7 +4,7 @@ from rest_framework import generics
 from .models import Cantor
 from .serializers import CantorSerializer
 
-class CantorView(generics.CreateAPIView):
+class CantorView(generics.ListAPIView):
     queryset = Cantor.objects.all()
     serializer_class = CantorSerializer
 
