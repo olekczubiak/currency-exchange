@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import courses
+from .views import CantorView
+
 
 urlpatterns = [
-    path('', courses),
-    path('course/', courses),
+    path('', CantorView.as_view()),
+    path('cantor', CantorView.as_view()),
 ]

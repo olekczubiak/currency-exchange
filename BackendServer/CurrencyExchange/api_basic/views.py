@@ -1,15 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from rest_framework.parsers import JSONParser
+from rest_framework import generics
 from .models import Cantor
 from .serializers import CantorSerializer
 
-
-def courses(request):
-    if request.method == 'GET':
-        course = Cantor.objects.all()
-        serializer = CantorSerializer(course, many=True)
-        return JsonResponse(serializer.data, safe=False)
+class CantorView(generics.CreateAPIView):
+    queryset = Cantor.objects.all()
+    serializer_class = CantorSerializer
 
 
-# Create your views here.
