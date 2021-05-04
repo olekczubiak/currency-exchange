@@ -101,7 +101,7 @@ class LiderWalut(Parse):
     #         print(ToJson.return_json_msg(element, self.search(self.PATH, element), self.search(self.PATH, element, 2)))
 
     def add_to_db(self):
-        for num in range(0,3):
+        for num in range(4):
             AddToDB(None,
             self.name, 
             self.date, 
@@ -120,20 +120,16 @@ class TopFx(Parse):
         self.date:str = str(ctime()).replace(' ', '-')
         self.website: str = 'www.topfx.pl'
         self.rating: int = 2
-        self.NAMES_TO_BUY = ['buy_EUR','buy_CHF','buy_USD', 'buy_GBP']
-        self.NAMES_TO_SELL = ['sell_EUR','sell_CHF', 'sell_USD', 'sell_GBP']
+                                #['EUR', 'GBP', 'CHF', 'USD']
+        self.NAMES_TO_BUY = ['buy_EUR','buy_GBP', 'buy_CHF','buy_USD']
+        self.NAMES_TO_SELL = ['sell_EUR','sell_GBP', 'sell_CHF', 'sell_USD']
 
-    def search(self, filename, element_to_buy, element_to_sell, container = 'span', element_name = 'id'):
+    def search(self, filename, name ,element_to_buy, element_to_sell, container = 'span', element_name = 'id'):
         soup = BeautifulSoup(OpenFile.open_file(filename), "html.parser")
         finder_to_buy = soup.body.find(container, attrs={element_name: element_to_buy}).text
         finder_to_sell = soup.body.find(container, attrs={element_name: element_to_sell}).text
         return finder_to_buy, finder_to_sell
-    """
-    def print_to_debug(self):
-        print('TopFx')
-        for element1, element2, element3 in zip(Parse().CURRENCIES, self.NAMES_TO_BUY, self.NAMES_TO_SELL):
-             print(self.search(self.PATH ,element1, element2, element3 ))
-    """
+
     def add_to_db(self):
         for element1, element2, element3 in zip(Parse().CURRENCIES, self.NAMES_TO_BUY, self.NAMES_TO_SELL):
             AddToDB(None,
@@ -182,11 +178,6 @@ class InternetowyKantor(Parse):
         print(self.search(self.PATH, 0)[1])
 
 
-        '''
-        for element in range(4):
-            print(self.search(self.PATH, element))
-        '''
-
 
     def add_to_db(self):
         for element in range(4):
@@ -200,25 +191,12 @@ class InternetowyKantor(Parse):
                     self.rating).main()
 
 
-
-"""
-(None,
-                    self.name, 
-                    self.date,
-                    self.search('html/html_topfx.html', element1, element2, element3)[0],
-                    self.search('html/html_topfx.html', element1, element2, element3)[1],
-                ,
-                    self.website,
-                    self.rating).main()
-
-"""
 if __name__ == "__main__":
 
-    InternetowyKantor().add_to_db()
     # Test db connection
     # AddToDB().main()
 
     # # Test Lider walut connection 
-    # LiderWalut().add_to_db()
-    # TopFx().add_to_db()
-    # InternetowyKantor().add_to_db()
+    LiderWalut().add_to_db()
+    TopFx().add_to_db()
+    InternetowyKantor().add_to_db()
