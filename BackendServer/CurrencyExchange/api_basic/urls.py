@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import CantorView
+from .views import CantorView, Last12RecordView
 
 
 urlpatterns = [
-    path('', CantorView.as_view()),
-    path('cantor', CantorView.as_view()),
+    path('', Last12RecordView.as_view()),
+    path('history', CantorView.as_view()),
 ]

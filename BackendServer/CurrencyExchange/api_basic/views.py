@@ -8,4 +8,9 @@ class CantorView(generics.ListAPIView):
     queryset = Cantor.objects.all()
     serializer_class = CantorSerializer
 
+class Last12RecordView(generics.ListAPIView):
+    queryset = Cantor.objects.order_by('-id').all()[:12]
+    serializer_class = CantorSerializer
+
+
 
