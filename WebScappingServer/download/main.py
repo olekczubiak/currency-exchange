@@ -9,7 +9,11 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 # ----------------------------------------------------------------------
 
 # Olek PC
-DB_PATH = '/Users/olek/Documents/CurrencyExchange/BackendServer/CurrencyExchange/db.sqlite3'
+#DB_PATH = '/Users/olek/Documents/CurrencyExchange/BackendServer/CurrencyExchange/db.sqlite3'
+
+# JAN OP PC
+DB_PATH = 'C:\\Users\\jkopr\\Desktop\\CurrencyExchange\\currency-exchange\\BackendServer\\CurrencyExchange\\db.sqlite3'
+
 
 class OpenFile:
     def open_file(self):
