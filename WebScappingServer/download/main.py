@@ -9,10 +9,10 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 # ----------------------------------------------------------------------
 
 # Olek PC
-#DB_PATH = '/Users/olek/Documents/CurrencyExchange/BackendServer/CurrencyExchange/db.sqlite3'
+DB_PATH = '/Users/olek/Documents/CurrencyExchange/BackendServer/CurrencyExchange/db.sqlite3'
 
 # JAN OP PC
-DB_PATH = 'C:\\Users\\jkopr\\Desktop\\CurrencyExchange\\currency-exchange\\BackendServer\\CurrencyExchange\\db.sqlite3'
+# DB_PATH = 'C:\\Users\\jkopr\\Desktop\\CurrencyExchange\\currency-exchange\\BackendServer\\CurrencyExchange\\db.sqlite3'
 
 
 class OpenFile:
@@ -28,16 +28,16 @@ class AddToDB:
     def __init__(self, my_id = None ,
                     name = 'ERROR NAME', 
                     date = 'ERROR DATE',
-                    buy_price = 'ERROR', 
-                    sell_price = 'ERROR', 
+                    buy_price = 0.00, 
+                    sell_price = 0.00, 
                     currency = 'ERROR', 
                     website='www.error.com', 
                     rating:int = 10):
         self.id: int = my_id
         self.name: str = name
         self.date: str = date
-        self.buy_price: str = buy_price
-        self.sell_price: str = sell_price
+        self.buy_price: float = buy_price
+        self.sell_price: float = sell_price
         self.currency: str = currency
         self.website: str = website
         self.rating: int = rating
@@ -112,8 +112,8 @@ class LiderWalut(Parse):
             AddToDB(None,
             self.name, 
             self.date, 
-            self.search(self.PATH, Parse().CURRENCIES[num]), 
-            self.search(self.PATH, Parse().CURRENCIES[num], 2),
+            float(self.search(self.PATH, Parse().CURRENCIES[num])), 
+            float(self.search(self.PATH, Parse().CURRENCIES[num], 2)),
             Parse().CURRENCIES[num],
             self.website, self.rating).main()
 
@@ -142,8 +142,8 @@ class TopFx(Parse):
             AddToDB(None,
                     self.name, 
                     self.date,
-                    self.search('html/html_topfx.html', element1, element2, element3)[0],
-                    self.search('html/html_topfx.html', element1, element2, element3)[1],
+                    float(self.search('html/html_topfx.html', element1, element2, element3)[0].replace(',', '.')),
+                    float(self.search('html/html_topfx.html', element1, element2, element3)[1].replace(',', '.')),
                     element1,
                     self.website,
                     self.rating).main()
@@ -191,8 +191,8 @@ class InternetowyKantor(Parse):
             AddToDB(None,
                     self.name,
                     self.date,
-                    self.search(self.PATH, element)[0],
-                    self.search(self.PATH, element)[1],
+                    float(self.search(self.PATH, element)[0].replace(',', '.')),
+                    float(self.search(self.PATH, element)[1].replace(',', '.')),
                     self.CURRENCIES[element].upper(),
                     self.website,
                     self.rating).main()
