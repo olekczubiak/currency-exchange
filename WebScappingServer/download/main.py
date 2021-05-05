@@ -3,6 +3,7 @@ import sqlite3
 from bs4 import BeautifulSoup
 import requests
 import os
+import datetime
 # to delete errors
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
@@ -71,7 +72,7 @@ class AddToDB:
 class Parse:
     def __init__(self):
         self.CURRENCIES: list = ['EUR', 'GBP', 'CHF', 'USD']
-        self.CANTOR_NAMES: list =  ['internetowykantor', 'liderwalut', 'topfx']
+        self.CANTOR_NAMES: list = ['internetowykantor', 'liderwalut', 'topfx']
     def download_file(self,url):
         r = requests.get(url, verify=False)
         return r.content
@@ -91,7 +92,7 @@ class LiderWalut(Parse):
     def __init__(self):
         self.PATH:str = 'html/html_liderwalut.html'
         self.name:str = 'Lider walut'
-        self.date:str = str(ctime()).replace(' ', '-')
+        self.date:str = datetime.datetime.now()
         self.website: str = 'www.liderwalut.pl'
         self.rating: int = 1
     
@@ -124,7 +125,7 @@ class TopFx(Parse):
     def __init__(self):
         self.PATH = 'html/html_topfx.html'
         self.name:str = 'TopFx'
-        self.date:str = str(ctime()).replace(' ', '-')
+        self.date:str = datetime.datetime.now()
         self.website: str = 'www.topfx.pl'
         self.rating: int = 2
                                 #['EUR', 'GBP', 'CHF', 'USD']
@@ -158,7 +159,7 @@ class InternetowyKantor(Parse):
         self.class_name_to_buy = 'currency_table_buy bem-rate-table__rate'
         self.class_name_to_sell = "currency_table_sell bem-rate-table__rate"
         self.name: str = 'InternetowyKantor'
-        self.date: str = str(ctime()).replace(' ', '-')
+        self.date: str = datetime.datetime.now()
         self.website: str = 'www.internetowykantor.pl'
         self.rating: int = 3
 
