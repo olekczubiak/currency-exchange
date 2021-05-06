@@ -1,6 +1,7 @@
 # README for WebScappingServer
 ## UML:
-![](https://i.imgur.com/H4nopnB.png)
+![](https://i.imgur.com/nXcgI5P.png)
+
 
 
 
@@ -22,7 +23,7 @@ source Scapping/bin/activate
 ```
 Dla windowsa:
 ```
-.Scapping/bin/activate
+Scapping/scripts/activate
 ```
 
 Teraz możemy zainstalować zależności:
@@ -36,11 +37,16 @@ pip3 install -r requirements.txt
 
 
 ## TODO: 
-- [ ] Zrobienie połączenie do bazy danych dla TopFx
-- [ ] Zrobienie połączenia do bazy danych dla InternetowegoKantoru
-- [ ] Zrobienie klasy main
-- [ ] Zrobienie w klasie main funkcji która odpowiada za działanie w pętli 
-- [ ] Zrobienie w klasie main funkcji która odpowiada za testy poprawnego działania
+- [ ] Zrobienie main loop 
+- [x] Zrobienie połączenie do bazy danych dla TopFx
+- [x] Zrobienie połączenia do bazy danych dla InternetowegoKantoru
+- [x] Zrobienie main loop 
+- [x] Zrobienie w klasie main funkcji która odpowiada za działanie w pętli 
+- [x] Zrobienie w klasie main funkcji która odpowiada za testy poprawnego działania
+- [x] Zminić PATH do bazy danych
+- [x] Poprawić indexowanie
+- [x] Poprawić dodawanie rekordów - tak żeby kazdy nowy rekord nie miał nowych kolumn
+- [x] Poprawić strzałki na uml
 
 
 
