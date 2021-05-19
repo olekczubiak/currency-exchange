@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -7,32 +7,158 @@
     <title>Kantor walut</title>
 </head>
 <body>
-    
+
 <div id='output'></div>
 
-<script>
-    fetch('http://127.0.0.1:8000/last?format=json', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-        .then(res => res.json())
-        .then(data => {
-            let output = '<h2>Waluty</h2>';
-            data.forEach(function(currency){
-                output += '<ul><li>Nazwa:'
-                        + currency.name +'</li><li>Data: ' 
-                        +currency.date +'</li><li>Buy: '
-                        +currency.buy +'</li><li>Sell: '
-                        +currency.sell +'</li><li>Waluta: '
-                        +currency.currency +'</li><li>Stronka: '
-                        +currency.website +'</li></ul>' ;
-            });
-            document.getElementById('output').innerHTML = output;
-        })
-        .catch(error => console.log('ERROR'))
-</script>
 </body>
-</html>
+</html> -->
 
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Kantor walut</title>
+    <link rel="stylesheet" href="static/api_basic/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic">
+    <link rel="stylesheet" href="static/api_basic/assets/fonts/font-awesome.min.css">
+</head>
+
+<body id="page-top">
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-secondary text-uppercase" id="mainNav">
+        <div class="container"><a class="navbar-brand js-scroll-trigger" href="#page-top">PORÓWNYWARKA WALUT</a><button data-toggle="collapse" data-target="#navbarResponsive" class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="https://github.com/olekczubiak/currency-exchange">GITHUB</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/admin">ADMIN</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="masthead bg-primary text-white text-center">
+        <div class="container"><img class="img-fluid d-block mx-auto mb-5" src="static/api_basic/assets/img/profile.png">
+            <h1>Porównywarka walut</h1>
+            <hr class="star-light">
+            <h2 class="font-weight-light mb-0">Projekt na Programowanie obiektowe</h2>
+        </div>
+    </header>
+    <section id="contact">
+        <div class="container">
+            <h2 class="text-uppercase text-center text-secondary mb-0">Kantory</h2>
+            <hr class="star-dark mb-5">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <form id="contactForm" name="sentMessage" novalidate="novalidate">
+                        <div class="control-group">
+                            <div id='output' class="form-group floating-label-form-group controls mb-0 pb-2"><label>Name</label><small class="form-text text-danger help-block"></small></div>
+                            
+
+                            
+                        </div>
+                        <div id="success"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-5 mb-lg-0">
+                    <h4 class="text-uppercase mb-4">AUTORZY:</h4>
+                    <p>Aleksander Czubiak<br>Jan Koprowski</p>
+                </div>
+                <div class="col-md-4 mb-5 mb-lg-0">
+                    <h4 class="text-uppercase">Linki</h4>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="#"><i class="fa fa-facebook fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="#"><i class="fa fa-google-plus fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="#"><i class="fa fa-twitter fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="#"><i class="fa fa-dribbble fa-fw"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4 class="text-uppercase mb-4">O nas</h4>
+                    <p class="lead mb-0"><span>Projekt zrobiony w ramach przedmiotu Programowanie Obiektowe</span></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="copyright py-4 text-center text-white">
+        <div class="container"><small>Copyright © JAN I OLEK 2021</small></div>
+    </div>
+
+    <script>
+        fetch('http://127.0.0.1:8000/last?format=json', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => res.json())
+            .then(data =>    {
+                let output = '';
+                let tablica = [];
+
+                // output += data.currency.name[0];
+                data.forEach(function(currency){
+                    tablica.push(currency.currency);
+                    tablica.push(currency.buy);
+                    tablica.push(currency.sell);
+                    // output += 
+                    //         '<ul><li>Nazwa:' + currency.name 
+                    //         +'</li><li>Data: ' +currency.date 
+                    //         +'</li><li>Buy: ' +currency.buy 
+                    //         +'</li><li>Sell: ' +currency.sell 
+                    //         +'</li><li>Waluta: ' +currency.currency 
+                    //         +'</li><li>Stronka: ' +currency.website
+                    //         +'</li></ul>' ;
+                });
+                output += '<div class="btn-toolbar"  style="justify-content: center; display: flex;" role="toolbar" aria-label="Toolbar with button groups"> <div class="btn-group mr-2" role="group" aria-label="First group"> <button type="button" class="btn btn-secondary">USD</button> <button type="button" class="btn btn-secondary">CHF</button> <button type="button" class="btn btn-secondary">EUR</button> <button type="button" class="btn btn-secondary">GBP</button> </div>';
+                output += '<table class="table"><thead><tr> <th scope="col">#</th> <th scope="col">Nazwa kantoru</th> <th scope="col">waluta</th> <th scope="col">Cena kupna</th> <th scope="col">Cena sprzedazy</th></tr> </thead> <tbody> ';
+                
+                // USD
+                output += '<tr> <th scope="row">1</th> <td><a href="https://internetowykantor.pl/">Internetowy kantor</td> <td>'+ tablica[0] +'</td> <td> '+ tablica[1]+'</td> <td> '+ tablica[2]+'</td> </tr>   ';
+                output += ' <tr> <th scope="row">2</th> <td><a href="https://topfx.pl/">TopFx</td> <td>'+ tablica[12] +'</td> <td>'+tablica[13] +'</td> <td>'+tablica[14] +'</td> </tr>';
+                output += ' <tr> <th scope="row">3</th> <td><a href="https://liderwalut.pl/">Lider walut</td> <td>'+ tablica[24] +'</td> <td>'+tablica[25] +'</td> <td>'+tablica[26] +'</td> </tr>';
+                // CHF
+                output += '<tr> <th scope="row">1</th> <td><a href="https://internetowykantor.pl/">Internetowy kantor</td> <td>'+ tablica[3] +'</td> <td> '+ tablica[4]+'</td> <td> '+ tablica[5]+'</td> </tr>   ';
+                output += ' <tr> <th scope="row">2</th> <td><a href="https://topfx.pl/">TopFx</td> <td>'+ tablica[15] +'</td> <td>'+tablica[16] +'</td> <td>'+tablica[17] +'</td> </tr>';
+                output += ' <tr> <th scope="row">3</th> <td><a href="https://liderwalut.pl/">Lider walut</td> <td>'+ tablica[27] +'</td> <td>'+tablica[28] +'</td> <td>'+tablica[29] +'</td> </tr> ';
+                // GBP
+                output += '<tr> <th scope="row">1</th> <td><a href="https://internetowykantor.pl/">Internetowy kantor</td> <td>'+ tablica[6] +'</td> <td> '+ tablica[7]+'</td> <td> '+ tablica[8]+'</td> </tr>   ';
+                output += ' <tr> <th scope="row">2</th> <td><a href="https://topfx.pl/">TopFx</td> <td>'+ tablica[18] +'</td> <td>'+tablica[19] +'</td> <td>'+tablica[20] +'</td> </tr>';
+                output += ' <tr> <th scope="row">3</th> <td><a href="https://liderwalut.pl/">Lider walut</td> <td>'+ tablica[30] +'</td> <td>'+tablica[31] +'</td> <td>'+tablica[32] +'</td> </tr>';
+                // EUR
+                output += '<tr> <th scope="row">1</th> <td><a href="https://internetowykantor.pl/">Internetowy kantor</td> <td>'+ tablica[9] +'</td> <td> '+ tablica[10]+'</td> <td> '+ tablica[11]+'</td> </tr>   ';
+                output += ' <tr> <th scope="row">2</th> <td><a href="https://topfx.pl/">TopFx</td> <td>'+ tablica[21] +'</td> <td>'+tablica[22] +'</td> <td>'+tablica[23] +'</td> </tr>';
+                output += ' <tr> <th scope="row">3</th> <td><a href="https://liderwalut.pl/">Lider walut</td> <td>'+ tablica[33] +'</td> <td>'+tablica[34] +'</td> <td>'+tablica[35] +'</td> </tr> </tbody> </table>';
+//     <tr>
+//       <th scope="row">3</th>
+//       <td>Larry</td>
+//       <td>the Bird</td>
+//       <td>@twitter</td>
+//     </tr>
+//     <tr>
+//       <th scope="row">3</th>
+//       <td>Larry</td>
+//       <td>the Bird</td>
+//       <td>@twitter</td>
+//     </tr>
+//   </tbody>
+// </table>
+                // output += tablica;
+                document.getElementById('output').innerHTML = output;
+            })
+            .catch(error => console.log('ERROR'))
+    </script>
+    <div class="d-lg-none scroll-to-top position-fixed rounded"><a class="d-block js-scroll-trigger text-center text-white rounded" href="#page-top"><i class="fa fa-chevron-up"></i></a></div>
+    <script src="static/api_basic/assets/js/jquery.min.js"></script>
+    <script src="static/api_basic/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="static/api_basic/assets/js/freelancer.js"></script>
+</body>
+
+</html>
