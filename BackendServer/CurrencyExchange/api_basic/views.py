@@ -12,5 +12,6 @@ class Last12RecordView(generics.ListAPIView):
     queryset = Cantor.objects.order_by('-id').all()[:12]
     serializer_class = CantorSerializer
 
-
+def index(request):
+    return render(request,'api_basic/index.html')
 

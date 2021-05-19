@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kantor walut</title>
+</head>
+<body>
+    
+<div id='output'></div>
+
+<script>
+    fetch('http://127.0.0.1:8000/last?format=json', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(res => res.json())
+        .then(data => {
+            let output = '<h2>Waluty</h2>';
+            data.forEach(function(currency){
+                output += '<ul><li>Nazwa:'
+                        + currency.name +'</li><li>Data: ' 
+                        +currency.date +'</li><li>Buy: '
+                        +currency.buy +'</li><li>Sell: '
+                        +currency.sell +'</li><li>Waluta: '
+                        +currency.currency +'</li><li>Stronka: '
+                        +currency.website +'</li></ul>' ;
+            });
+            document.getElementById('output').innerHTML = output;
+        })
+        .catch(error => console.log('ERROR'))
+</script>
+</body>
+</html>
+
