@@ -209,9 +209,9 @@ if __name__ == "__main__":
     # TopFx().add_to_db()
     # InternetowyKantor().add_to_db()
 
-    # Loop
+    # # Loop
     for x in range(3):
-        Parse()
+        Parse().main()
         LiderWalut().add_to_db()
         TopFx().add_to_db()
         InternetowyKantor().add_to_db()
