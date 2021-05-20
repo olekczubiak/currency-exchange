@@ -41,12 +41,32 @@
         <div class="container"><img class="img-fluid d-block mx-auto mb-5" src="static/api_basic/assets/img/profile.png">
             <h1>Porównywarka walut</h1>
             <hr class="star-light">
-            <h2 class="font-weight-light mb-0">Projekt na Programowanie obiektowe</h2>
+            <!-- <h2 class="font-weight-light mb-0">Projekt na Programowanie obiektowe</h2> -->
+            <!-- jakby nie chciało sie wyśrodkować nadpisać klase z h2 -->
+            <div id="output-calculator"> </div>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Podaj ilość" aria-label="Podaj ilość">
+                <select class="custom-select" id="inputGroupSelect01">
+                <option selected>Wybierz walutę</option>
+                <option value="1">EUR</option>
+                <option value="2">USD</option>
+                <option value="3">CHF</option>
+                <option value="4">GBP</option>
+                </select>
+                <select class="custom-select" id="inputGroupSelect02">
+                    <option selected>Kupić/Sprzedać</option>
+                    <option value="1">Kupić</option>
+                    <option value="2">Sprzedać</option>
+                    </select>
+                <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Oblicz</button>
+                </div>
+            </div>    
         </div>
     </header>
     <section id="contact">
         <div class="container">
-            <h2 class="text-uppercase text-center text-secondary mb-0">Kantory</h2>
+            <h2 class="text-uppercase text-center text-secondary mb-0">Kantory i waluty</h2>
             <hr class="star-dark mb-5">
             <div class="row">
                 <div class="col-lg-8 mx-auto">
@@ -73,10 +93,10 @@
                 <div class="col-md-4 mb-5 mb-lg-0">
                     <h4 class="text-uppercase">Linki</h4>
                     <ul class="list-inline">
-                        <li class="list-inline-item"><a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="#"><i class="fa fa-facebook fa-fw"></i></a></li>
-                        <li class="list-inline-item"><a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="#"><i class="fa fa-google-plus fa-fw"></i></a></li>
-                        <li class="list-inline-item"><a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="#"><i class="fa fa-twitter fa-fw"></i></a></li>
-                        <li class="list-inline-item"><a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="#"><i class="fa fa-dribbble fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="https://github.com/olekczubiak/currency-exchange"><i class="fa fa-github fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="https://github.com/olekczubiak/currency-exchange"><i class="fa fa-github fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="https://github.com/olekczubiak/currency-exchange"><i class="fa fa-github fa-fw"></i></a></li>
+                        <li class="list-inline-item"><a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="https://github.com/olekczubiak/currency-exchange"><i class="fa fa-github fa-fw"></i></a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
@@ -118,11 +138,12 @@
                     //         +'</li><li>Stronka: ' +currency.website
                     //         +'</li></ul>' ;
                 });
-                output += '<div class="btn-toolbar"  style="justify-content: center; display: flex;" role="toolbar" aria-label="Toolbar with button groups"> <div class="btn-group mr-2" role="group" aria-label="First group"> <button type="button" class="btn btn-secondary">USD</button> <button type="button" class="btn btn-secondary">CHF</button> <button type="button" class="btn btn-secondary">EUR</button> <button type="button" class="btn btn-secondary">GBP</button> </div>';
+
+                // output += '<div class="btn-toolbar"  style="justify-content: center; display: flex;" role="toolbar" aria-label="Toolbar with button groups"> <div class="btn-group mr-2" role="group" aria-label="First group"> <button type="button" class="btn btn-secondary">USD</button> <button type="button" class="btn btn-secondary">CHF</button> <button type="button" class="btn btn-secondary">EUR</button> <button type="button" class="btn btn-secondary">GBP</button> </div>';
                 output += '<table class="table"><thead><tr> <th scope="col">#</th> <th scope="col">Nazwa kantoru</th> <th scope="col">waluta</th> <th scope="col">Cena kupna</th> <th scope="col">Cena sprzedazy</th></tr> </thead> <tbody> ';
                 
                 // USD
-                output += '<tr> <th scope="row">1</th> <td><a href="https://internetowykantor.pl/">Internetowy kantor</td> <td>'+ tablica[0] +'</td> <td> '+ tablica[1]+'</td> <td> '+ tablica[2]+'</td> </tr>   ';
+                output += '<tr> <th scope="row">1</th> <td><a href="https://internetowykantor.pl/">Internetowy kantor</td> <td>'+ tablica[0] +'</td> <td> '+ tablica[1] +'</td> <td> '+ tablica[2]+'</td> </tr>   ';
                 output += ' <tr> <th scope="row">2</th> <td><a href="https://topfx.pl/">TopFx</td> <td>'+ tablica[12] +'</td> <td>'+tablica[13] +'</td> <td>'+tablica[14] +'</td> </tr>';
                 output += ' <tr> <th scope="row">3</th> <td><a href="https://liderwalut.pl/">Lider walut</td> <td>'+ tablica[24] +'</td> <td>'+tablica[25] +'</td> <td>'+tablica[26] +'</td> </tr>';
                 // CHF
@@ -137,27 +158,18 @@
                 output += '<tr> <th scope="row">1</th> <td><a href="https://internetowykantor.pl/">Internetowy kantor</td> <td>'+ tablica[9] +'</td> <td> '+ tablica[10]+'</td> <td> '+ tablica[11]+'</td> </tr>   ';
                 output += ' <tr> <th scope="row">2</th> <td><a href="https://topfx.pl/">TopFx</td> <td>'+ tablica[21] +'</td> <td>'+tablica[22] +'</td> <td>'+tablica[23] +'</td> </tr>';
                 output += ' <tr> <th scope="row">3</th> <td><a href="https://liderwalut.pl/">Lider walut</td> <td>'+ tablica[33] +'</td> <td>'+tablica[34] +'</td> <td>'+tablica[35] +'</td> </tr> </tbody> </table>';
-//     <tr>
-//       <th scope="row">3</th>
-//       <td>Larry</td>
-//       <td>the Bird</td>
-//       <td>@twitter</td>
-//     </tr>
-//     <tr>
-//       <th scope="row">3</th>
-//       <td>Larry</td>
-//       <td>the Bird</td>
-//       <td>@twitter</td>
-//     </tr>
-//   </tbody>
-// </table>
-                // output += tablica;
                 document.getElementById('output').innerHTML = output;
             })
             .catch(error => console.log('ERROR'))
         }
         getData();
         setInterval(getData, 25000)
+
+        async function calculator() {
+            output = '';
+            document.getElementById('output-calculator').innerHTML = output;
+        }
+        calculator();
 
     </script>
     <div class="d-lg-none scroll-to-top position-fixed rounded"><a class="d-block js-scroll-trigger text-center text-white rounded" href="#page-top"><i class="fa fa-chevron-up"></i></a></div>
