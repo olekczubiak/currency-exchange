@@ -7,6 +7,14 @@
 ![](https://i.imgur.com/ZKzAKxK.jpg)
 
  ---
+ 
+ #### Wygląd:
+
+https://user-images.githubusercontent.com/48390582/121568673-39a7e200-ca20-11eb-91e7-2df68c7df134.mov
+
+
+
+
  #### Technologie: 
      1. Front-end: html, css, js, Bootstrap
      2. Back-end: Django
@@ -22,18 +30,11 @@
     3. System ocen kantorów (Rating Table), ranking według 1.ceny, 2.sponsorowane 
     4. Kupno i sprzedaż tylko za PLN
     5. Kalkulator i przelicznik walut
-    
-
 
 
 ---
 
 ## TODO:
-
-- [x] 6.05.2021 - Poprawić błędy i znormalizować baze danych |  połączyć baze danych 
-- [ ] Za 2 tyg - Zrobić frontend + deploy
-- [ ] Za 4 tyg - Ewentualny termin zapasowy
-- [ ] Za 8 tyg - Ewentualny termin zapasowy
 - [ ] Sprzedać apkę i być bogatym💸 
 
 
