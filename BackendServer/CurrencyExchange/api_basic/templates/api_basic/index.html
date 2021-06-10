@@ -1,18 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Kantor walut</title>
-</head>
-<body>
-
-<div id='output'></div>
-
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -41,11 +26,9 @@
         <div class="container"><img class="img-fluid d-block mx-auto mb-5" src="static/api_basic/assets/img/profile.png">
             <h1>Porównywarka walut</h1>
             <hr class="star-light">
-            <!-- <h2 class="font-weight-light mb-0">Projekt na Programowanie obiektowe</h2> -->
-            <!-- jakby nie chciało sie wyśrodkować nadpisać klase z h2 -->
             <div id="output-calculator"> </div>
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Podaj ilość" aria-label="Podaj ilość">
+                <input type="number" id="input-currency" class="form-control" placeholder="Podaj ilość" aria-label="Podaj ilość">
                 <select class="custom-select" id="inputGroupSelect01">
                 <option selected>Wybierz walutę</option>
                 <option value="1">EUR</option>
@@ -59,9 +42,10 @@
                     <option value="2">Sprzedać</option>
                     </select>
                 <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button">Oblicz</button>
-                </div>
+                <button id="btn-accept" class="btn btn-outline-secondary" type="button" onclick="currency()" >Oblicz</button>
+            </div>
             </div>    
+            <div id="input-html"></div>
         </div>
     </header>
     <section id="contact">
@@ -91,11 +75,8 @@
                     <p>Aleksander Czubiak<br>Jan Koprowski</p>
                 </div>
                 <div class="col-md-4 mb-5 mb-lg-0">
-                    <h4 class="text-uppercase">Linki</h4>
+                    <h4 class="text-uppercase">Wejdź na gita!</h4>
                     <ul class="list-inline">
-                        <li class="list-inline-item"><a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="https://github.com/olekczubiak/currency-exchange"><i class="fa fa-github fa-fw"></i></a></li>
-                        <li class="list-inline-item"><a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="https://github.com/olekczubiak/currency-exchange"><i class="fa fa-github fa-fw"></i></a></li>
-                        <li class="list-inline-item"><a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="https://github.com/olekczubiak/currency-exchange"><i class="fa fa-github fa-fw"></i></a></li>
                         <li class="list-inline-item"><a class="btn btn-outline-light btn-social text-center rounded-circle" role="button" href="https://github.com/olekczubiak/currency-exchange"><i class="fa fa-github fa-fw"></i></a></li>
                     </ul>
                 </div>
@@ -124,22 +105,11 @@
                 let output = '';
                 let tablica = [];
 
-                // output += data.currency.name[0];
                 data.forEach(function(currency){
                     tablica.push(currency.currency);
                     tablica.push(currency.buy);
                     tablica.push(currency.sell);
-                    // output += 
-                    //         '<ul><li>Nazwa:' + currency.name 
-                    //         +'</li><li>Data: ' +currency.date 
-                    //         +'</li><li>Buy: ' +currency.buy 
-                    //         +'</li><li>Sell: ' +currency.sell 
-                    //         +'</li><li>Waluta: ' +currency.currency 
-                    //         +'</li><li>Stronka: ' +currency.website
-                    //         +'</li></ul>' ;
                 });
-
-                // output += '<div class="btn-toolbar"  style="justify-content: center; display: flex;" role="toolbar" aria-label="Toolbar with button groups"> <div class="btn-group mr-2" role="group" aria-label="First group"> <button type="button" class="btn btn-secondary">USD</button> <button type="button" class="btn btn-secondary">CHF</button> <button type="button" class="btn btn-secondary">EUR</button> <button type="button" class="btn btn-secondary">GBP</button> </div>';
                 output += '<table class="table"><thead><tr> <th scope="col">#</th> <th scope="col">Nazwa kantoru</th> <th scope="col">waluta</th> <th scope="col">Cena kupna</th> <th scope="col">Cena sprzedazy</th></tr> </thead> <tbody> ';
                 
                 // USD
@@ -164,13 +134,106 @@
         }
         getData();
         setInterval(getData, 25000)
+    </script>
 
-        async function calculator() {
-            output = '';
-            document.getElementById('output-calculator').innerHTML = output;
-        }
-        calculator();
+    <script>
 
+        var insetButton = document.getElementById("input-currency");
+        insetButton.addEventListener("keyup", function(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("btn-accept").click();
+            }
+        }); 
+
+        const input = document.getElementById('input-currency');
+        const select = document.getElementById('inputGroupSelect01');
+        const action = document.getElementById('inputGroupSelect02');
+        const API_URL = "http://127.0.0.1:8000/last?format=json"
+
+        async function currency(){
+            let html = '';
+            const res = await fetch(API_URL);
+            const data = await res.json();
+            // console.log(data);
+            let internetowyUsdBuy = data[0].buy;
+            let internetowyUsdSell = data[0].sell;
+            let internetowyCHFBuy = data[1].buy;
+            let internetowyCHFSell = data[1].sell;
+            let internetowyGBPBuy = data[2].buy;
+            let internetowyGBPSell = data[2].sell;
+            let internetowyEURBuy = data[3].buy;
+            let internetowyEURSell = data[3].sell;
+            let topfxUSDBuy = data[4].buy;
+            let topfxUSDSell = data[4].sell;
+            let topfxCHFBuy = data[5].buy;
+            let topfxCHFSell = data[5].sell;
+            let topfxGBPBuy = data[6].buy;
+            let topfxGBPSell = data[6].sell;
+            let topfxEURBuy = data[7].buy;
+            let topfxEURSell = data[7].sell;
+            let liderwalutUSDbuy = data[8].buy;
+            let liderwalutUSDsell = data[8].sell;
+            let liderwalutCHFbuy = data[9].buy;
+            let liderwalutCHFsell = data[9].sell;
+            let liderwalutGBPbuy = data[10].buy;
+            let liderwalutGBPsell = data[10].sell;
+            let liderwalutEURbuy = data[11].buy;
+            let liderwalutEURsell = data[11].sell;
+// EUR
+            if(select.value == "1" && action.value == "1")  {
+                // Pokazuje wszystkie euro do kupna
+                html += '<p> Internetowy Kantor–' + (input.value*internetowyEURBuy).toFixed(2) + ' zł </p>';
+                html += '<p> TopFx–' + (input.value*topfxEURBuy).toFixed(2) + ' zł </p>';
+                html += '<p> Lider walut–' + (input.value*liderwalutEURbuy).toFixed(2) + ' zł </p>';
+};
+            if(select.value == "1" && action.value == "2")  {
+                // Pokazuje wszystkie euro do sprzedazy
+                html += '<p> Internetowy Kantor–' + (input.value*internetowyEURSell).toFixed(2) + ' zł </p>';
+                html += '<p> TopFx–' + (input.value*topfxEURSell).toFixed(2) + ' zł </p>';
+                html += '<p> Lider walut–' + (input.value*liderwalutEURsell).toFixed(2) + ' zł </p>';
+};
+// USD
+            if(select.value == "2" && action.value == "1")  {
+                // Pokazuje wszystkie usd do kupna
+                html += '<p> Internetowy Kantor–' + (input.value*internetowyUsdBuy).toFixed(2) + ' zł </p>';
+                html += '<p> TopFx–' + (input.value*topfxUSDBuy).toFixed(2) + ' zł </p>';
+                html += '<p> Lider walut–' + (input.value*liderwalutUSDbuy).toFixed(2) + ' zł </p>';
+};
+            if(select.value == "2" && action.value == "2")  {
+                // Pokazuje wszystkie usd do sprzedazy
+                html += '<p> Internetowy Kantor–' + (input.value*internetowyUsdSell).toFixed(2) + ' zł </p>';
+                html += '<p> TopFx–' + (input.value*topfxUSDSell).toFixed(2) + ' zł </p>';
+                html += '<p> Lider walut–' + (input.value*liderwalutUSDsell).toFixed(2) + ' zł </p>';
+};
+// CHF
+            if(select.value == "3" && action.value == "1")  {
+                // Pokazuje wszystkie CHF do kupna
+                html += '<p> Internetowy Kantor–' + (input.value*internetowyCHFBuy).toFixed(2) + ' zł </p>';
+                html += '<p> TopFx–' + (input.value*topfxCHFBuy).toFixed(2) + ' zł </p>';
+                html += '<p> Lider walut–' + (input.value*liderwalutCHFbuy).toFixed(2) + ' zł </p>';
+};
+            if(select.value == "3" && action.value == "2")  {
+                // Pokazuje wszystkie CHF do sprzedazy
+                html += '<p> Internetowy Kantor–' + (input.value*internetowyCHFSell).toFixed(2) + ' zł </p>';
+                html += '<p> TopFx–' + (input.value*topfxCHFSell).toFixed(2) + ' zł </p>';
+                html += '<p> Lider walut–' + (input.value*liderwalutCHFsell).toFixed(2) + ' zł </p>';
+};
+// GBP
+            if(select.value == "4" && action.value == "1")  {
+                // Pokazuje wszystkie GBP do kupna
+                html += '<p> Internetowy Kantor–' + (input.value*internetowyGBPBuy).toFixed(2) + ' zł </p>';
+                html += '<p> TopFx–' + (input.value*topfxGBPBuy).toFixed(2) + ' zł </p>';
+                html += '<p> Lider walut–' + (input.value*liderwalutGBPbuy).toFixed(2) + ' zł </p>';
+};
+            if(select.value == "4" && action.value == "2")  {
+                // Pokazuje wszystkie GBP do sprzedazy
+                html += '<p> Internetowy Kantor–' + (input.value*internetowyGBPSell).toFixed(2) + ' zł </p>';
+                html += '<p> TopFx–' + (input.value*topfxGBPSell).toFixed(2) + ' zł </p>';
+                html += '<p> Lider walut–' + (input.value*liderwalutGBPbuy).toFixed(2) + ' zł </p>';
+};
+            document.getElementById('input-html').innerHTML = html;
+        };
     </script>
     <div class="d-lg-none scroll-to-top position-fixed rounded"><a class="d-block js-scroll-trigger text-center text-white rounded" href="#page-top"><i class="fa fa-chevron-up"></i></a></div>
     <script src="static/api_basic/assets/js/jquery.min.js"></script>
