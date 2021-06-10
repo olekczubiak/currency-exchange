@@ -9,7 +9,10 @@
  ---
  
  #### Wygląd:
- https://user-images.githubusercontent.com/48390582/121568377-f0f02900-ca1f-11eb-948e-105e6b31d3a0.mov
+
+https://user-images.githubusercontent.com/48390582/121568673-39a7e200-ca20-11eb-91e7-2df68c7df134.mov
+
+
 
 
  #### Technologie: 
