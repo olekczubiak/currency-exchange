@@ -211,7 +211,7 @@ if __name__ == "__main__":
 
     # # Loop
     for x in range(3):
-        # Parse().main()
+        Parse().main()
         LiderWalut().add_to_db()
         TopFx().add_to_db()
         InternetowyKantor().add_to_db()
