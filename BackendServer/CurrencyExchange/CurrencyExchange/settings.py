@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-u)z1w&bx7**opl(kxhqe%zwl^9$a6h9mv-z$r0rct7$=%@1jt=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -130,3 +130,6 @@ STATICFILES_DIRS = (
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# To add permissions and connect front with backend fetch api 
+CORS_ORIGIN_ALLOW_ALL = True

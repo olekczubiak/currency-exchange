@@ -3,3 +3,5 @@ djengo
 .idea/
 # Literal File Names
 .DS_Store
+web
+CurrencyExchange/api_basic/__pycache__

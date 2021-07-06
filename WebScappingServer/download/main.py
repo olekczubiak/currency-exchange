@@ -84,7 +84,7 @@ class Parse:
         content = self.download_file(url)
         self.write_file(n, content)
     def main(self):
-        for n, url in enumerate(open('urls.txt').readlines()):
+        for n, url in enumerate(open('download/urls.txt').readlines()):
             self.scrape_tasks(n, url)
 
 
@@ -210,7 +210,7 @@ if __name__ == "__main__":
     # InternetowyKantor().add_to_db()
 
     # # Loop
-    for x in range(3):
+    while True:
         Parse().main()
         LiderWalut().add_to_db()
         TopFx().add_to_db()

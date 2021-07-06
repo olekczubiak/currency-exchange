@@ -94,7 +94,7 @@
     <script>
 
         async function getData() {
-        fetch('http://127.0.0.1:8000/last?format=json', {
+        fetch('http://0.0.0.0:8000/last?format=json', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -149,7 +149,7 @@
         const input = document.getElementById('input-currency');
         const select = document.getElementById('inputGroupSelect01');
         const action = document.getElementById('inputGroupSelect02');
-        const API_URL = "http://127.0.0.1:8000/last?format=json"
+        const API_URL = "http://0.0.0.0:8000/last?format=json"
 
         async function currency(){
             let html = '';
